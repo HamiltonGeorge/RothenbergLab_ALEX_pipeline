@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#%%
 """
 Created on Mon Feb  5 20:56:12 2024
 
@@ -24,12 +25,12 @@ from scipy.optimize import curve_fit
 from skimage.feature import peak_local_max
 
 
-DOfolder=r'D:\Data\01302024\Try_Again\Donor only'
-AOfolder=r'D:\Data\01302024\Try_Again\Acceptor only'
-Corrections_Folder = r'D:\Scripting\FRET\SL_GH_ALEX_Standards'
+DOfolder=r'C:\Users\GH\demo_data\DO\donor_only'
+AOfolder=r'C:\Users\GH\demo_data\AO\acceptor_only'
+Corrections_Folder = r'C:\Users\GH\demo_data\Corrections_Folder'
 
-DOimages=7   #number of images expected in the folder
-AOimages=7   #number of images expected in the folder
+DOimages=2   #number of images expected in the folder
+AOimages=2   #number of images expected in the folder
 
 smoothing = False  #if trajectories are to be smoothed for calculations
 window = 5  #sliding window size for average smoothing
@@ -138,7 +139,7 @@ ax2 = fig.add_subplot(gs[0, :-1])
 ax2.set_xticklabels([])
 ax3 = fig.add_subplot(gs[1:, -1])
 ax3.set_yticklabels([])
-ax1.hexbin(np.concatenate((alldata['AO']['E'].flatten(), alldata['DO']['E'].flatten())),np.concatenate((alldata['AO']['S'].flatten(), alldata['DO']['S'].flatten())), extent=(-.25,1.5,-.25,1.5), gridsize=(100,100),mincnt=80, bins='log', cmap='hsv')
+ax1.hexbin(np.concatenate((alldata['AO']['E'].flatten(), alldata['DO']['E'].flatten())),np.concatenate((alldata['AO']['S'].flatten(), alldata['DO']['S'].flatten())), extent=(-.25,1.5,-.25,1.5), gridsize=(100,100),mincnt=20, bins='log', cmap='hsv')
 ax2.hist(np.concatenate((alldata['AO']['E'].flatten(), alldata['DO']['E'].flatten())), bins = np.linspace(-.25,1.25,101), density = True, color = 'grey')
 ax3.hist(np.concatenate((alldata['AO']['S'].flatten(), alldata['DO']['S'].flatten())), bins = np.linspace(-.25,1.25,101), density = True, color = 'grey', orientation = 'horizontal')
 
@@ -180,7 +181,7 @@ ax2 = fig.add_subplot(gs[0, :-1])
 ax2.set_xticklabels([])
 ax3 = fig.add_subplot(gs[1:, -1])
 ax3.set_yticklabels([])
-ax1.hexbin(np.concatenate((alldata['AO']['E_corrAD'].flatten(), alldata['DO']['E_corrAD'].flatten())),np.concatenate((alldata['AO']['S_corrAD'].flatten(), alldata['DO']['S_corrAD'].flatten())), extent=(-.25,1.5,-.25,1.5), gridsize=(100,100),mincnt=80, bins='log', cmap='hsv')
+ax1.hexbin(np.concatenate((alldata['AO']['E_corrAD'].flatten(), alldata['DO']['E_corrAD'].flatten())),np.concatenate((alldata['AO']['S_corrAD'].flatten(), alldata['DO']['S_corrAD'].flatten())), extent=(-.25,1.5,-.25,1.5), gridsize=(100,100),mincnt=20, bins='log', cmap='hsv')
 ax2.hist(np.concatenate((alldata['AO']['E_corrAD'].flatten(), alldata['DO']['E_corrAD'].flatten())), bins = np.linspace(-.25,1.25,101), density = True, color = 'grey')
 ax3.hist(np.concatenate((alldata['AO']['S_corrAD'].flatten(), alldata['DO']['S_corrAD'].flatten())), bins = np.linspace(-.25,1.25,101), density = True, color = 'grey', orientation = 'horizontal')
 
@@ -211,3 +212,5 @@ with open(Corrections_Folder + r'\alpha_delta.txt','w+') as f:
 
 
 
+
+# %%

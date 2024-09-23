@@ -4,7 +4,7 @@ Created on Tue Feb  6 16:12:34 2024
 
 @author: GH
 """
-
+#%%
 
 import os
 import numpy as np
@@ -21,13 +21,13 @@ from skimage.filters import gaussian
 from skimage.feature import peak_local_max
 import copy
 
-folderpath=r'Z:\rothenberglab\archive\Xue\2024 FRET paper_data analysis\04-03-2024 Alex\data'
-folders = ['S2_Ch2_left7 Cy5']
+folderpath=r'C:\Users\GH\demo_data'
+folders = ['donor_only']
 prefix='spool'
 suffix='.tif'
 
 
-sortchannel='R'
+sortchannel='G'
 for k in folders:
     os.chdir(folderpath + '\\' +k)
     filelist = [i for i in os.listdir('.') if i[-3:]=='tif']
@@ -105,3 +105,5 @@ for k in folders:
             tf.imsave(f'{prefix}_{i}_sorted{suffix}',OG_image_sorted)
     
 
+
+# %%

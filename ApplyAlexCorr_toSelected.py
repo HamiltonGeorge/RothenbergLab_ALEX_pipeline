@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 import fnmatch as fn
 
 
-directory = r'C:\Users\Sudipta Lahiri\Desktop\ALEX corrected Data\RADX_FBH1 Controls\BRCA2-RAD51 with FBH1\Exp1\BRCA2-RAD51 with FBH1\DATA\selected_1' #folder containing the selected traces
+directory = r'C:\Users\Exp1\DATA\selected_1' #folder containing the selected traces
 save_subfolders = ['Corrected traces', 'DATA', 'selected_1'] #subfolders to navigate into, in order, to save resulsts
 
 alpha = 0.034

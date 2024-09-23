@@ -22,17 +22,17 @@ from skimage.feature import peak_local_max
 import math as m
 
 #two separate standard FRET samples
-DAfolders = [r'D:\Data\SUDIPTA_ALEX_Correction\03282024\DATA\ALEX\10 bp', 
-             r'D:\Data\SUDIPTA_ALEX_Correction\03282024\DATA\ALEX\15 bp',
-             r'D:\Data\SUDIPTA_ALEX_Correction\03282024\DATA\ALEX\20 bp'] #folders for image/trace data
+DAfolders = [r'C:\Users\GH\demo_data\DA_samples\10bp', 
+             r'C:\Users\GH\demo_data\DA_samples\15bp',
+             r'C:\Users\GH\demo_data\DA_samples\20bp'] #folders for image/trace data
 
-DAimages = [8, 8, 8] #number of images in each folder
+DAimages = [2, 2, 2] #number of images in each folder
 
 subsample_to_reweight = True #experimental; whether to subsample arrays of expts with more data to match the number in the expt with the fewest datapoints (equally weight the samples)
 
-Corrections_Folder = r'D:\Scripting\FRET\SL_GH_ALEX_Standards'
+Corrections_Folder = r'C:\Users\GH\demo_data\Corrections_Folder'
 
-alpha_delta_file =  None#'alpha_delta.txt'#None if no file, and then alpha, delta must be specified. File should be in corrections folder. expects file to be header row 1, alpha row 2, delta row 3
+alpha_delta_file =  'alpha_delta.txt'#'alpha_delta.txt'#None if no file, and then alpha, delta must be specified. File should be in corrections folder. expects file to be header row 1, alpha row 2, delta row 3
 alpha = 0.034 #only used if alpha_delta_file not specified
 delta = 0.136 #only used if alpha_delta_file not specified
 
@@ -247,7 +247,7 @@ plt.savefig(Corrections_Folder + r'\ABDGcorrected_FRET_Standards.pdf')
 plt.show()
 #%% save corrections
 with open(Corrections_Folder + r'\beta_gamma.txt','w+') as f:
-    f.write('#beta and gamma calculated with {0} images from {1} and {2} from {3}\n'.format(DA1images, DA1folder, DA2images, DA2folder))
+    f.write('#beta and gamma calculated with images from {0}\n'.format(DAfolders))
     f.write('{0}\n{1}'.format(beta, gamma))
     
 
@@ -266,3 +266,5 @@ with open(Corrections_Folder + r'\beta_gamma.txt','w+') as f:
 
 
 
+
+# %%
