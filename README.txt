@@ -46,15 +46,16 @@ Following MatLab based trace extraction, Python scripts are to be run in the fol
 
 Runtime on test machine equipped with 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz 1.80 GHz was ~10 minutes. 
 
-Outline:
+Demo data available at:
+https://zenodo.org/records/13830702
 
-Load mapping images
-Generate polywarp mapping parameters
-Load raw data traces for donor-only, acceptor-only, FRET standards
-Extract raw donor and acceptor traces
-Convert traces from .mat to .dat format
-Calculate alpha and delta parameters from donor-only, acceptor-only trace data simultaneously
-Calculate beta, gamma from multiple FRET standard datasets simultaneously, corrected for alpha and delta
-Apply correction parameters to .dat format extracted traces for both FRET standards and experimental data of interest
-
+Outline of demo:
+For compatibility reasons (although an issue with misordered images was fixed), after raw data is collected and organized into the data structure as in the demo datase (data/image_folder/spool.tif), the data must first be run through "Save_Reordered_OG_image_4_1.py". To do so, simply replace the folderpath and folders strings with the location of the demo data folder to be processed. 
+Ex: folderpath = r'C:\Users\GH\Desktop\FromD\SUDIPTA_ALEX_Correction\demo_data'
+    folders = [r'DO\\donor_only']
+Do so for all folders (this has been done for demo data, so can be skipped). This will result in tiffs with '_sorted.tif' appended to their names.
+Next, in MatLab 2018b, run "mainBatch_FRET_ALEX_wholeim_alltraces_test_splitimsel.m", pointing it to the provided mapping files when prompted. For data folder, select the folder containing image folders. Ex: for DA_samples, select demo_data\DA_samples and it willl process all subfolders. DA samples should be processed with map_method = 'FRET'. For our setup, DO should be processed via 'Left' mode and AO via 'Right'. This is assumed in later Python scripts. This step has been performed for demo data. This will result in .mat files containing trace data.
+Next, run 'Calculate_ALEX_alpha_delta.py'. Change the DOfolder, AOfolder, and Corrections_Folder strings to the correct locations (ex: for DO, r'...demo_data\DO\donor_only'). Change the DOimages and AOimages values to the number of files for each to use in analysis (2 with demo files). Optionally, enable smoothing by setting it to True and choose an odd-value smoothing window (not enabled for demo). This will generate several images of uncorrected and alpha+delta corrected DO/AO 2D histograms, as well as a text file containing the alpha and delta values. Plots can be adjusted by adjusting the parameters at the plt.hexbin lines. 
+Next, run 'Calculate_ALEX_beta_gamma_4_24_Nsamps.py' similarly to obtain beta, gamma. It will automatically load the file generated to contain alpha and delta parameters. Analysis can be performed with >=2 folders of DA data, contained as strings in the list DAfolders. This demo includes 3 folders of samples consisting of dsDNA with dyes at differing numbers of nucleotides from each other incorporated into the DNA backbone (Cy3, Cy5 pair). The number of images to use from each folder is included in the list DAimages. The parameter subsample_to_reweight can be set to True to allow counts for each sample to be reweighted such that each folder is weighted equally in the fits to obtain beta and gamma. Set to False to disable. Again, smoothing can be enabled or disabled, and is disabled here. Outputs here are similar images of uncorrected, delta++alpha corrected, and alpha+beta+gamma+delta corrected SvE 2D histograms of standards. Additionally, a text file with beta and gamma parameters is generated. 
+From here, the current workflow is to load the experimental traces of interest into vbFRET for dynamic trace selection and analysis. For plotting and applying correction parameters to selected traces, an outline script ('ApplyAlexCorr_toSelected.py') is provided which is applicable in our vbFRET workflow (and also optionally applies smoothing).
 
